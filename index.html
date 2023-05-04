@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Écran magique</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+
+	<body>
+		<div id="container">
+			<header>
+				<div id="window-bar">
+					<div>
+						<img
+							src="./assets/images/paint-logo.png"
+							alt="Logo de Paint 1995"
+						/>
+						<h1>untitled - etch-a-sketch 98</h1>
+					</div>
+
+					<div id="window-guizmo">
+						<div>
+							<div class="guizmo">
+								<img
+									src="./assets/images/minimize.svg"
+									alt="Minimize button from Windows 98"
+								/>
+							</div>
+
+							<div class="guizmo">
+								<img
+									src="./assets/images/maximize.svg"
+									alt="Maximize button from Windows 98"
+								/>
+							</div>
+						</div>
+
+						<div class="guizmo">
+							<img
+								src="./assets/images/close.svg"
+								alt="Close button from Windows 98"
+							/>
+						</div>
+					</div>
+				</div>
+
+				<ul>
+					<li>File</li>
+					<li>Edit</li>
+					<li>View</li>
+					<li>Image</li>
+					<li>Options</li>
+					<li>Help</li>
+				</ul>
+			</header>
+
+			<section>
+				<aside>
+					<div id="toolbox">
+						<input
+							type="image"
+							src="./assets/images/pen.png"
+							alt="pen"
+							id="pen-btn"
+						/>
+						<input
+							type="image"
+							src="./assets/images/eraser.png"
+							alt="eraser"
+							id="eraser-btn"
+						/>
+						<input
+							type="image"
+							src="./assets/images/bucket.png"
+							alt="bucket"
+							id="bucket-btn"
+						/>
+						<input
+							type="image"
+							src="./assets/images/color-picker.png"
+							alt="color picker"
+							id="picker-btn"
+						/>
+					</div>
+
+					<div id="button-container">
+						<button id="random-btn">Random</button>
+						<button id="grid-btn">Grid</button>
+						<button id="clear-btn">Clear</button>
+					</div>
+
+					<div id="size-input-container">
+						<label for="grid-size">Canvas size Max 100</label>
+						<input
+							type="number"
+							name="grid-size"
+							value="12"
+							min="1"
+							max="100"
+						/>
+					</div>
+
+					<div id="rectangle-deco"></div>
+				</aside>
+
+				<main></main>
+			</section>
+
+			<footer>
+				<div id="color-picker-container">
+					<input type="color" value="#000000" />
+				</div>
+
+				<div id="palette">
+					<div style="background-color: #000000"></div>
+					<div style="background-color: #ffffff"></div>
+					<div style="background-color: #808080"></div>
+					<div style="background-color: #c0c0c0"></div>
+					<div style="background-color: #ff0000"></div>
+					<div style="background-color: #800000"></div>
+					<div style="background-color: #ffff00"></div>
+					<div style="background-color: #808000"></div>
+					<div style="background-color: #00ff00"></div>
+					<div style="background-color: #008000"></div>
+					<div style="background-color: #00ffff"></div>
+					<div style="background-color: #008080"></div>
+					<div style="background-color: #0000ff"></div>
+					<div style="background-color: #000080"></div>
+					<div style="background-color: #ff00ff"></div>
+					<div style="background-color: #800080"></div>
+					<div style="background-color: #ffff80"></div>
+					<div style="background-color: #808040"></div>
+					<div style="background-color: #00ff80"></div>
+					<div style="background-color: #004040"></div>
+					<div style="background-color: #80ffff"></div>
+					<div style="background-color: #0080ff"></div>
+					<div style="background-color: #8080ff"></div>
+					<div style="background-color: #004080"></div>
+					<div style="background-color: #ff0080"></div>
+					<div style="background-color: #8000ff"></div>
+					<div style="background-color: #ff8040"></div>
+					<div style="background-color: #804000"></div>
+				</div>
+			</footer>
+		</div>
+		<script src="output/script.js"></script>
+	</body>
+</html>

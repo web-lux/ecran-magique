@@ -1,0 +1,238 @@
+@mixin retro-shadow() {
+	box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #ffffff,
+		inset -2px -2px #808080, inset 2px 2px #dfdfdf;
+}
+
+@font-face {
+	font-family: "w95fa";
+	src: url("./assets/font/w95fa.woff");
+}
+
+:root {
+	--l-grey: #bebebe;
+	--d-grey: #7e7e7e;
+	--blue: #00007e;
+	--white: #ffffff;
+	--black: #000000;
+	font-size: 12px;
+	color: var(--white);
+	font-family: "w95fa", sans-serif;
+}
+
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+ul {
+	list-style: none;
+}
+
+body {
+	background-color: grey;
+	display: flex;
+	height: 100vh;
+}
+
+button {
+	@include retro-shadow();
+	border: none;
+	background: none;
+	font-family: "w95fa", sans-serif;
+	padding: 5px;
+	width: 100%;
+	cursor: pointer;
+}
+
+#container {
+	@include retro-shadow();
+	background-color: var(--l-grey);
+	padding: 2px 3px 3px 2px;
+	margin: auto;
+}
+
+header {
+	#window-bar {
+		display: flex;
+		justify-content: space-between;
+		background-color: var(--blue);
+		height: 25px;
+		width: 100%;
+		padding: 5px 2px;
+		cursor: default;
+
+		> div:first-child {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+
+			h1 {
+				font-size: 1.2rem;
+			}
+
+			img {
+				max-height: 20px;
+			}
+		}
+
+		#window-guizmo {
+			display: flex;
+			justify-content: space-between;
+			width: 50px;
+
+			div:first-child {
+				display: flex;
+				gap: 1px;
+			}
+
+			.guizmo {
+				@include retro-shadow();
+				background-color: var(--l-grey);
+				height: 100%;
+				width: 15px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+			}
+		}
+	}
+
+	ul {
+		display: flex;
+		color: var(--black);
+		font-size: 1.2rem;
+		cursor: default;
+
+		li {
+			padding: 5px 10px;
+		}
+
+		li:hover {
+			background-color: var(--blue);
+			color: var(--white);
+		}
+	}
+}
+
+section {
+	display: flex;
+
+	aside {
+		box-sizing: content-box;
+		width: 60px;
+		padding: 5px;
+		border-top: solid 1px var(--white);
+		border-bottom: solid 1px var(--d-grey);
+		box-shadow: var(--d-grey) 0 -1px, var(--white) 0 1px;
+		display: flex;
+		flex-direction: column;
+		justify-items: center;
+		align-items: stretch;
+
+		#toolbox {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+
+			input {
+				@include retro-shadow();
+				padding: 4px;
+				width: 100%;
+				cursor: pointer;
+			}
+		}
+
+		#button-container {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+		}
+
+		#size-input-container {
+			margin-top: 10px;
+			color: var(--black);
+
+			input {
+				@include retro-shadow();
+				width: 100%;
+				border: none;
+				padding: 4px 6px 3px 6px;
+				margin-top: 2px;
+				font-family: "w95fa", sans-serif;
+				font-size: 1rem;
+			}
+		}
+
+		#rectangle-deco {
+			/* désigne le rectangle décoratif après l'input canvas size */
+			width: 100%;
+			height: 100%;
+			box-shadow: inset 2px 2px var(--d-grey), inset -2px -2px var(--white);
+			margin-top: 10px;
+		}
+	}
+
+	main {
+		width: 400px;
+		height: 400px;
+		background-color: var(--white);
+		box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #ffffff,
+			inset -2px -2px #808080, inset 2px 2px #dfdfdf;
+		margin: 0 5px 5px 5px;
+		display: grid;
+	}
+}
+
+footer {
+	display: flex;
+	border-top: solid 1px var(--white);
+	border-bottom: solid 1px var(--d-grey);
+	box-shadow: var(--d-grey) 0 -1px, var(--white) 0 1px;
+	padding: 5px;
+
+	#color-picker-container {
+		@include retro-shadow();
+		width: 40px;
+		height: 40px;
+		padding: 2px;
+
+		input {
+			height: 100%;
+			width: 100%;
+			padding: 0;
+			background: none;
+			border: none;
+			cursor: pointer;
+		}
+
+		input::-webkit-color-swatch-wrapper {
+			padding: 0;
+		}
+
+		input::-webkit-color-swatch {
+			border: none;
+		}
+	}
+
+	#palette {
+		display: grid;
+		grid-template-columns: repeat(14, 20px);
+		grid-template-rows: repeat(2, 20px);
+
+		div {
+			@include retro-shadow();
+			cursor: pointer;
+		}
+	}
+}
+
+button:active,
+.guizmo:active,
+#toolbox input:active,
+#color-picker-container:active,
+#palette div:active,
+#size-input-container input {
+	box-shadow: inset -1px -1px #ffffff, inset 1px 1px #0a0a0a,
+		inset -2px -2px #dfdfdf, inset 2px 2px #808080 !important;
+}
