@@ -1,17 +1,27 @@
 "use strict";
-const canvasEl = document.querySelector("#paint-container");
-const canvasSizeEl = document.querySelector("#grid-size");
-canvasSizeEl.addEventListener("change", () => {
-    createGrid(parseInt(canvasSizeEl.value));
+const canvasEl = document.querySelector("main");
+const sizeInputEl = document.querySelector("#size-input-container input");
+window.addEventListener("load", () => {
+    createGrid(sizeInputEl);
 });
-function createGrid(size) {
-    if (size <= 0 || size > 100 || isNaN(size)) {
-        canvasSizeEl.style.backgroundColor = "red";
+sizeInputEl.addEventListener("change", function () {
+    createGrid(this);
+});
+function createGrid(userInputEl) {
+    let userInput = parseInt(userInputEl.value);
+    if (!userInput || userInput < 1 || userInput > 100) {
+        alert("Merci d'entrer un nombre entre 1 et 100 sans caractères spéciaux, + et - inclus.");
+        sizeInputEl.style.backgroundColor = "red";
         return;
     }
-    canvasSizeEl.style.backgroundColor = "white";
-    canvasEl.style.gridTemplate = `repeat(${size}, 1fr) / repeat(${size}, 1fr)`;
+    sizeInputEl.style.backgroundColor = "white";
+    makeGrid(userInput);
+}
+function makeGrid(size) {
+    let result = [];
     for (let i = 0; i < size * size; i++) {
-        canvasEl.innerHTML += `<div></div>`;
+        result.push(document.createElement("div"));
     }
+    canvasEl.replaceChildren(...result);
+    canvasEl.style.gridTemplate = `repeat(${size}, 1fr) / repeat(${size}, 1fr)`;
 }
