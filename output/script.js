@@ -11,6 +11,7 @@ const toolboxEl = document.querySelector("#toolbox");
 const penBtn = document.querySelector("#pen-btn");
 const eraserBtn = document.querySelector("#eraser-btn");
 const bucketBtn = document.querySelector("#bucket-btn");
+const pickerBtn = document.querySelector("#picker-btn");
 /* FUNCTION */
 function getUserInput() {
     let userInput = parseInt(sizeInputEl.value);
@@ -65,6 +66,11 @@ function handleClick() {
                 : colorInput.value;
         });
     }
+    else if (pickerBtn.classList.contains("activated")) {
+        colorInput.value = rgbToHex(this.style.backgroundColor);
+    }
+    else
+        return;
 }
 function clearCanvas() {
     [...canvasEl.children].forEach((div) => (div.style.backgroundColor = "white"));
@@ -113,6 +119,9 @@ eraserBtn.addEventListener("click", (event) => {
     classToggle(event.target);
 });
 bucketBtn.addEventListener("click", (event) => {
+    classToggle(event.target);
+});
+pickerBtn.addEventListener("click", (event) => {
     classToggle(event.target);
 });
 /* INITIALISATION */
