@@ -1,14 +1,10 @@
 "use strict";
 const canvasEl = document.querySelector("main");
 const sizeInputEl = document.querySelector("#size-input-container input");
-window.addEventListener("load", () => {
-    createGrid(sizeInputEl);
-});
-sizeInputEl.addEventListener("change", function () {
-    createGrid(this);
-});
-function createGrid(userInputEl) {
-    let userInput = parseInt(userInputEl.value);
+const colorInput = document.querySelector("#color-picker-container input");
+const paletteColorEls = document.querySelectorAll("#palette div");
+function createGridFromInput() {
+    let userInput = parseInt(sizeInputEl.value);
     if (!userInput || userInput < 1 || userInput > 100) {
         alert("Merci d'entrer un nombre entre 1 et 100 sans caractères spéciaux, + et - inclus.");
         sizeInputEl.style.backgroundColor = "red";
@@ -24,4 +20,22 @@ function makeGrid(size) {
     }
     canvasEl.replaceChildren(...result);
     canvasEl.style.gridTemplate = `repeat(${size}, 1fr) / repeat(${size}, 1fr)`;
+    [...canvasEl.children].forEach((div) => div.addEventListener("mouseover", paint));
 }
+function rgbToHex(rgb) {
+    let regexResult = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    let result = regexResult === null || regexResult === void 0 ? void 0 : regexResult.slice(1).map((n) => parseInt(n, 10).toString(16).padStart(2, "0")).join("");
+    return `#${result}`;
+}
+function paint() {
+    this.style.background = colorInput.value;
+}
+paletteColorEls.forEach((div) => {
+    div.addEventListener("click", () => {
+        colorInput.value = rgbToHex(div.style.backgroundColor);
+    });
+});
+sizeInputEl.addEventListener("change", function () {
+    createGridFromInput();
+});
+createGridFromInput();
