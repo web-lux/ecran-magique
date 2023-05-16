@@ -27,7 +27,7 @@ function createGridFromInput() {
     if (userInput) {
         renderGrid(userInput);
         [...canvasEl.children].forEach((div) => {
-            div.addEventListener("mouseover", paint);
+            div.addEventListener("mouseover", handleHover);
             div.addEventListener("click", handleClick);
         });
     }
@@ -45,7 +45,7 @@ function rgbToHex(rgb) {
     let result = regexResult === null || regexResult === void 0 ? void 0 : regexResult.slice(1).map((n) => parseInt(n, 10).toString(16).padStart(2, "0")).join("");
     return `#${result}`;
 }
-function paint() {
+function handleHover() {
     if (penBtn.classList.contains("activated")) {
         this.style.backgroundColor = randomBtn.classList.contains("activated")
             ? getRandomHex()
