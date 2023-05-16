@@ -7,6 +7,9 @@ const paletteColorEls = document.querySelectorAll("#palette div");
 const clearBtn = document.querySelector("button#clear-btn");
 const gridBtn = document.querySelector("button#grid-btn");
 const randomBtn = document.querySelector("button#random-btn");
+const toolboxEl = document.querySelector("#toolbox");
+const penBtn = document.querySelector("#pen-btn");
+const eraserBtn = document.querySelector("#eraser-btn");
 /* FUNCTION */
 function getUserInput() {
     let userInput = parseInt(sizeInputEl.value);
@@ -39,11 +42,13 @@ function rgbToHex(rgb) {
     return `#${result}`;
 }
 function paint() {
-    if (randomBtn.classList.contains("activated")) {
-        this.style.backgroundColor = getRandomHex();
+    if (penBtn.classList.contains("activated")) {
+        this.style.backgroundColor = randomBtn.classList.contains("activated")
+            ? getRandomHex()
+            : colorInput.value;
     }
-    else {
-        this.style.background = colorInput.value;
+    else if (eraserBtn.classList.contains("activated")) {
+        this.style.backgroundColor = "white";
     }
 }
 function clearCanvas() {
@@ -61,6 +66,14 @@ function getRandomHex() {
     }
     return color;
 }
+function classToggle(element) {
+    if (element.parentNode.id == "toolbox") {
+        [...toolboxEl.children].forEach((el) => {
+            el.classList.remove("activated");
+        });
+    }
+    element.classList.toggle("activated");
+}
 /* EVENT LISTENER */
 paletteColorEls.forEach((div) => {
     div.addEventListener("click", () => {
@@ -71,12 +84,18 @@ sizeInputEl.addEventListener("change", function () {
     createGridFromInput();
 });
 clearBtn.addEventListener("click", clearCanvas);
-gridBtn.addEventListener("click", function () {
-    this.classList.toggle("activated");
+gridBtn.addEventListener("click", (event) => {
+    classToggle(event.target);
     displayGrid();
 });
-randomBtn.addEventListener("click", function () {
-    this.classList.toggle("activated");
+randomBtn.addEventListener("click", (event) => {
+    classToggle(event.target);
+});
+penBtn.addEventListener("click", (event) => {
+    classToggle(event.target);
+});
+eraserBtn.addEventListener("click", (event) => {
+    classToggle(event.target);
 });
 /* INITIALISATION */
 createGridFromInput();

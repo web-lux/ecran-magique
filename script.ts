@@ -13,6 +13,9 @@ const clearBtn = document.querySelector(
 ) as HTMLButtonElement;
 const gridBtn = document.querySelector("button#grid-btn") as HTMLElement;
 const randomBtn = document.querySelector("button#random-btn") as HTMLElement;
+const toolboxEl = document.querySelector("#toolbox") as HTMLElement;
+const penBtn = document.querySelector("#pen-btn") as HTMLElement;
+const eraserBtn = document.querySelector("#eraser-btn") as HTMLElement;
 
 /* FUNCTION */
 
@@ -58,10 +61,12 @@ function rgbToHex(rgb: string) {
 }
 
 function paint(this: any) {
-	if (randomBtn.classList.contains("activated")) {
-		this.style.backgroundColor = getRandomHex();
-	} else {
-		this.style.background = colorInput.value;
+	if (penBtn.classList.contains("activated")) {
+		this.style.backgroundColor = randomBtn.classList.contains("activated")
+			? getRandomHex()
+			: colorInput.value;
+	} else if (eraserBtn.classList.contains("activated")) {
+		this.style.backgroundColor = "white";
 	}
 }
 
@@ -87,6 +92,15 @@ function getRandomHex(): string {
 	return color;
 }
 
+function classToggle(element: any) {
+	if (element.parentNode.id == "toolbox") {
+		[...toolboxEl.children].forEach((el) => {
+			el.classList.remove("activated");
+		});
+	}
+	element.classList.toggle("activated");
+}
+
 /* EVENT LISTENER */
 
 paletteColorEls.forEach((div: any) => {
@@ -101,13 +115,21 @@ sizeInputEl.addEventListener("change", function () {
 
 clearBtn.addEventListener("click", clearCanvas);
 
-gridBtn.addEventListener("click", function () {
-	this.classList.toggle("activated");
+gridBtn.addEventListener("click", (event) => {
+	classToggle(event.target);
 	displayGrid();
 });
 
-randomBtn.addEventListener("click", function () {
-	this.classList.toggle("activated");
+randomBtn.addEventListener("click", (event) => {
+	classToggle(event.target);
+});
+
+penBtn.addEventListener("click", (event) => {
+	classToggle(event.target);
+});
+
+eraserBtn.addEventListener("click", (event) => {
+	classToggle(event.target);
 });
 
 /* INITIALISATION */
