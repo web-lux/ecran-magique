@@ -57,7 +57,7 @@ function handleHover() {
             : colorInput.value;
     }
     else if (eraserBtn.classList.contains("activated")) {
-        this.style.backgroundColor = "white";
+        this.style.backgroundColor = "";
     }
     else
         return;
@@ -71,13 +71,16 @@ function handleClick() {
         });
     }
     else if (pickerBtn.classList.contains("activated")) {
-        colorInput.value = rgbToHex(this.style.backgroundColor);
+        console.log(this.style.backgroundColor);
+        if (this.style.backgroundColor != "") {
+            colorInput.value = rgbToHex(this.style.backgroundColor);
+        }
     }
     else
         return;
 }
 function clearCanvas() {
-    [...canvasEl.children].forEach((div) => (div.style.backgroundColor = "white"));
+    [...canvasEl.children].forEach((div) => (div.style.backgroundColor = ""));
 }
 function displayGrid() {
     canvasEl.classList.toggle("grid");
