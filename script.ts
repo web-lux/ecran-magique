@@ -12,6 +12,7 @@ const clearBtn = document.querySelector(
 	"button#clear-btn"
 ) as HTMLButtonElement;
 const gridBtn = document.querySelector("button#grid-btn") as HTMLElement;
+const randomBtn = document.querySelector("button#random-btn") as HTMLElement;
 
 /* FUNCTION */
 
@@ -57,7 +58,11 @@ function rgbToHex(rgb: string) {
 }
 
 function paint(this: any) {
-	this.style.background = colorInput.value;
+	if (randomBtn.classList.contains("activated")) {
+		this.style.backgroundColor = getRandomHex();
+	} else {
+		this.style.background = colorInput.value;
+	}
 }
 
 function clearCanvas() {
@@ -68,6 +73,18 @@ function clearCanvas() {
 
 function displayGrid() {
 	canvasEl.classList.toggle("grid");
+}
+
+function getRandomHex(): string {
+	const possibleCharacters = "0123456789ABCDEF";
+	let color = "#";
+
+	for (let i = 0; i < 6; i++) {
+		const randomIndex = Math.floor(Math.random() * possibleCharacters.length);
+		color += possibleCharacters[randomIndex];
+	}
+
+	return color;
 }
 
 /* EVENT LISTENER */
@@ -87,6 +104,10 @@ clearBtn.addEventListener("click", clearCanvas);
 gridBtn.addEventListener("click", function () {
 	this.classList.toggle("activated");
 	displayGrid();
+});
+
+randomBtn.addEventListener("click", function () {
+	this.classList.toggle("activated");
 });
 
 /* INITIALISATION */

@@ -6,6 +6,7 @@ const colorInput = document.querySelector("#color-picker-container input");
 const paletteColorEls = document.querySelectorAll("#palette div");
 const clearBtn = document.querySelector("button#clear-btn");
 const gridBtn = document.querySelector("button#grid-btn");
+const randomBtn = document.querySelector("button#random-btn");
 /* FUNCTION */
 function getUserInput() {
     let userInput = parseInt(sizeInputEl.value);
@@ -38,13 +39,27 @@ function rgbToHex(rgb) {
     return `#${result}`;
 }
 function paint() {
-    this.style.background = colorInput.value;
+    if (randomBtn.classList.contains("activated")) {
+        this.style.backgroundColor = getRandomHex();
+    }
+    else {
+        this.style.background = colorInput.value;
+    }
 }
 function clearCanvas() {
     [...canvasEl.children].forEach((div) => (div.style.backgroundColor = "white"));
 }
 function displayGrid() {
     canvasEl.classList.toggle("grid");
+}
+function getRandomHex() {
+    const possibleCharacters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+        const randomIndex = Math.floor(Math.random() * possibleCharacters.length);
+        color += possibleCharacters[randomIndex];
+    }
+    return color;
 }
 /* EVENT LISTENER */
 paletteColorEls.forEach((div) => {
@@ -59,6 +74,9 @@ clearBtn.addEventListener("click", clearCanvas);
 gridBtn.addEventListener("click", function () {
     this.classList.toggle("activated");
     displayGrid();
+});
+randomBtn.addEventListener("click", function () {
+    this.classList.toggle("activated");
 });
 /* INITIALISATION */
 createGridFromInput();
