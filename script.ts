@@ -16,6 +16,7 @@ const randomBtn = document.querySelector("button#random-btn") as HTMLElement;
 const toolboxEl = document.querySelector("#toolbox") as HTMLElement;
 const penBtn = document.querySelector("#pen-btn") as HTMLElement;
 const eraserBtn = document.querySelector("#eraser-btn") as HTMLElement;
+const bucketBtn = document.querySelector("#bucket-btn") as HTMLElement;
 
 /* FUNCTION */
 
@@ -36,9 +37,10 @@ function createGridFromInput() {
 	let userInput = getUserInput();
 	if (userInput) {
 		renderGrid(userInput);
-		[...canvasEl.children].forEach((div) =>
-			div.addEventListener("mouseover", paint)
-		);
+		[...canvasEl.children].forEach((div) => {
+			div.addEventListener("mouseover", paint);
+			div.addEventListener("click", handleClick);
+		});
 	}
 }
 
@@ -67,6 +69,16 @@ function paint(this: any) {
 			: colorInput.value;
 	} else if (eraserBtn.classList.contains("activated")) {
 		this.style.backgroundColor = "white";
+	} else return;
+}
+
+function handleClick() {
+	if (bucketBtn.classList.contains("activated")) {
+		[...canvasEl.children].forEach((div: any) => {
+			div.style.backgroundColor = randomBtn.classList.contains("activated")
+				? getRandomHex()
+				: colorInput.value;
+		});
 	}
 }
 
@@ -129,6 +141,10 @@ penBtn.addEventListener("click", (event) => {
 });
 
 eraserBtn.addEventListener("click", (event) => {
+	classToggle(event.target);
+});
+
+bucketBtn.addEventListener("click", (event) => {
 	classToggle(event.target);
 });
 
