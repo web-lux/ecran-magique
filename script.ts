@@ -11,7 +11,7 @@ const paletteColorEls = document.querySelectorAll("#palette div");
 const clearBtn = document.querySelector(
 	"button#clear-btn"
 ) as HTMLButtonElement;
-const gridBtn = document.querySelector("button#grid-btn");
+const gridBtn = document.querySelector("button#grid-btn") as HTMLElement;
 
 /* FUNCTION */
 
@@ -66,6 +66,10 @@ function clearCanvas() {
 	);
 }
 
+function displayGrid() {
+	canvasEl.classList.toggle("grid");
+}
+
 /* EVENT LISTENER */
 
 paletteColorEls.forEach((div: any) => {
@@ -79,6 +83,11 @@ sizeInputEl.addEventListener("change", function () {
 });
 
 clearBtn.addEventListener("click", clearCanvas);
+
+gridBtn.addEventListener("click", function () {
+	this.classList.toggle("activated");
+	displayGrid();
+});
 
 /* INITIALISATION */
 

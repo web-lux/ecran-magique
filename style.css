@@ -202,6 +202,11 @@ button:active,
 #toolbox input:active,
 #color-picker-container:active,
 #palette div:active,
-#size-input-container input {
+#size-input-container input,
+.activated {
   box-shadow: inset -1px -1px #ffffff, inset 1px 1px #0a0a0a, inset -2px -2px #dfdfdf, inset 2px 2px #808080 !important;
+}
+
+.grid {
+  gap: 1px;
 }/*# sourceMappingURL=style.css.map */

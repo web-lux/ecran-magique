@@ -43,6 +43,9 @@ function paint() {
 function clearCanvas() {
     [...canvasEl.children].forEach((div) => (div.style.backgroundColor = "white"));
 }
+function displayGrid() {
+    canvasEl.classList.toggle("grid");
+}
 /* EVENT LISTENER */
 paletteColorEls.forEach((div) => {
     div.addEventListener("click", () => {
@@ -53,5 +56,9 @@ sizeInputEl.addEventListener("change", function () {
     createGridFromInput();
 });
 clearBtn.addEventListener("click", clearCanvas);
+gridBtn.addEventListener("click", function () {
+    this.classList.toggle("activated");
+    displayGrid();
+});
 /* INITIALISATION */
 createGridFromInput();
