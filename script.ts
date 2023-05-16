@@ -1,3 +1,5 @@
+/* HTML ELEMENT */
+
 const canvasEl = document.querySelector("main") as HTMLElement;
 const sizeInputEl = document.querySelector(
 	"#size-input-container input"
@@ -9,8 +11,11 @@ const paletteColorEls = document.querySelectorAll("#palette div");
 const clearBtn = document.querySelector(
 	"button#clear-btn"
 ) as HTMLButtonElement;
+const gridBtn = document.querySelector("button#grid-btn");
 
-function createGridFromInput(): void {
+/* FUNCTION */
+
+function getUserInput(): number | undefined {
 	let userInput = parseInt(sizeInputEl.value);
 	if (!userInput || userInput < 1 || userInput > 100) {
 		alert(
@@ -20,19 +25,26 @@ function createGridFromInput(): void {
 		return;
 	}
 	sizeInputEl.style.backgroundColor = "white";
-	makeGrid(userInput);
+	return userInput;
 }
 
-function makeGrid(size: number): void {
+function createGridFromInput() {
+	let userInput = getUserInput();
+	if (userInput) {
+		renderGrid(userInput);
+		[...canvasEl.children].forEach((div) =>
+			div.addEventListener("mouseover", paint)
+		);
+	}
+}
+
+function renderGrid(size: number) {
 	let result = [];
 	for (let i = 0; i < size * size; i++) {
 		result.push(document.createElement("div"));
 	}
 	canvasEl.replaceChildren(...result);
 	canvasEl.style.gridTemplate = `repeat(${size}, 1fr) / repeat(${size}, 1fr)`;
-	[...canvasEl.children].forEach((div) =>
-		div.addEventListener("mouseover", paint)
-	);
 }
 
 function rgbToHex(rgb: string) {
@@ -48,22 +60,26 @@ function paint(this: any) {
 	this.style.background = colorInput.value;
 }
 
-paletteColorEls.forEach((div: any) => {
-	div.addEventListener("click", () => {
-		colorInput.value = rgbToHex(div.style.backgroundColor);
-	});
-});
-
 function clearCanvas() {
 	[...canvasEl.children].forEach(
 		(div: any) => (div.style.backgroundColor = "white")
 	);
 }
 
+/* EVENT LISTENER */
+
+paletteColorEls.forEach((div: any) => {
+	div.addEventListener("click", () => {
+		colorInput.value = rgbToHex(div.style.backgroundColor);
+	});
+});
+
 sizeInputEl.addEventListener("change", function () {
 	createGridFromInput();
 });
 
 clearBtn.addEventListener("click", clearCanvas);
+
+/* INITIALISATION */
 
 createGridFromInput();

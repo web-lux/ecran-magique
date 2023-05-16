@@ -1,10 +1,13 @@
 "use strict";
+/* HTML ELEMENT */
 const canvasEl = document.querySelector("main");
 const sizeInputEl = document.querySelector("#size-input-container input");
 const colorInput = document.querySelector("#color-picker-container input");
 const paletteColorEls = document.querySelectorAll("#palette div");
 const clearBtn = document.querySelector("button#clear-btn");
-function createGridFromInput() {
+const gridBtn = document.querySelector("button#grid-btn");
+/* FUNCTION */
+function getUserInput() {
     let userInput = parseInt(sizeInputEl.value);
     if (!userInput || userInput < 1 || userInput > 100) {
         alert("Merci d'entrer un nombre entre 1 et 100 sans caractères spéciaux, + et - inclus.");
@@ -12,16 +15,22 @@ function createGridFromInput() {
         return;
     }
     sizeInputEl.style.backgroundColor = "white";
-    makeGrid(userInput);
+    return userInput;
 }
-function makeGrid(size) {
+function createGridFromInput() {
+    let userInput = getUserInput();
+    if (userInput) {
+        renderGrid(userInput);
+        [...canvasEl.children].forEach((div) => div.addEventListener("mouseover", paint));
+    }
+}
+function renderGrid(size) {
     let result = [];
     for (let i = 0; i < size * size; i++) {
         result.push(document.createElement("div"));
     }
     canvasEl.replaceChildren(...result);
     canvasEl.style.gridTemplate = `repeat(${size}, 1fr) / repeat(${size}, 1fr)`;
-    [...canvasEl.children].forEach((div) => div.addEventListener("mouseover", paint));
 }
 function rgbToHex(rgb) {
     let regexResult = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
@@ -31,16 +40,18 @@ function rgbToHex(rgb) {
 function paint() {
     this.style.background = colorInput.value;
 }
+function clearCanvas() {
+    [...canvasEl.children].forEach((div) => (div.style.backgroundColor = "white"));
+}
+/* EVENT LISTENER */
 paletteColorEls.forEach((div) => {
     div.addEventListener("click", () => {
         colorInput.value = rgbToHex(div.style.backgroundColor);
     });
 });
-function clearCanvas() {
-    [...canvasEl.children].forEach((div) => (div.style.backgroundColor = "white"));
-}
 sizeInputEl.addEventListener("change", function () {
     createGridFromInput();
 });
 clearBtn.addEventListener("click", clearCanvas);
+/* INITIALISATION */
 createGridFromInput();
