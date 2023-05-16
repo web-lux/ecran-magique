@@ -157,6 +157,7 @@ section main {
   box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #ffffff, inset -2px -2px #808080, inset 2px 2px #dfdfdf;
   margin: 0 5px 5px 5px;
   display: grid;
+  padding: 2px 3px 3px 2px;
 }
 
 footer {
