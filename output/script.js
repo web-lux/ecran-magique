@@ -3,6 +3,7 @@ const canvasEl = document.querySelector("main");
 const sizeInputEl = document.querySelector("#size-input-container input");
 const colorInput = document.querySelector("#color-picker-container input");
 const paletteColorEls = document.querySelectorAll("#palette div");
+const clearBtn = document.querySelector("button#clear-btn");
 function createGridFromInput() {
     let userInput = parseInt(sizeInputEl.value);
     if (!userInput || userInput < 1 || userInput > 100) {
@@ -35,7 +36,11 @@ paletteColorEls.forEach((div) => {
         colorInput.value = rgbToHex(div.style.backgroundColor);
     });
 });
+function clearCanvas() {
+    [...canvasEl.children].forEach((div) => (div.style.backgroundColor = "white"));
+}
 sizeInputEl.addEventListener("change", function () {
     createGridFromInput();
 });
+clearBtn.addEventListener("click", clearCanvas);
 createGridFromInput();

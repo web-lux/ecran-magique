@@ -6,6 +6,9 @@ const colorInput = document.querySelector(
 	"#color-picker-container input"
 ) as HTMLInputElement;
 const paletteColorEls = document.querySelectorAll("#palette div");
+const clearBtn = document.querySelector(
+	"button#clear-btn"
+) as HTMLButtonElement;
 
 function createGridFromInput(): void {
 	let userInput = parseInt(sizeInputEl.value);
@@ -51,8 +54,16 @@ paletteColorEls.forEach((div: any) => {
 	});
 });
 
+function clearCanvas() {
+	[...canvasEl.children].forEach(
+		(div: any) => (div.style.backgroundColor = "white")
+	);
+}
+
 sizeInputEl.addEventListener("change", function () {
 	createGridFromInput();
 });
+
+clearBtn.addEventListener("click", clearCanvas);
 
 createGridFromInput();
